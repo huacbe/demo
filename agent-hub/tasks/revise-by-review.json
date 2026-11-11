@@ -1,0 +1,16 @@
+{
+  "name": "revise-by-review",
+  "goal": "按独立复核意见返工 cleanup-report.md，验证「工人产出 → 独立复核 → 返工修正」闭环。",
+  "workDir": "D:\\demo\\agent-hub\\work\\revise-by-review",
+  "subtasks": [
+    {
+      "id": "revise",
+      "agent": "codex",
+      "dependsOn": [],
+      "prompt": "当前目录有 cleanup-report.md（初版）、review-notes.md（复核意见）、inventory.csv（271 行，含 path/size_kb/modified）。\n\n写 cleanup-report-v2.md（中文，60 行内），按 review-notes.md 逐条修正。要点：\n1. 用一条 PowerShell 命令一次算出你需要的分类计数（例如 Import-Csv inventory.csv 后 Group-Object），不要反复读取大文件；总工具调用控制在 6 次以内。\n2. 分类必须互斥且覆盖全部 267 张 PNG，文末写一行核对：各类之和 = 267。p53–p56、s54 必须落入某一类。\n3. 分「事实」与「推测」两节：事实只写 CSV 能直接算出的数字；推测标注依据。\n4. 单位统一字节+MiB，百分比保留 4 位小数。\n5. 风险等级每条附依据；45 张小图改判「低–中」或注明「未验内容」。\n6. 不删除初版，只新增 v2。\n\n只回复一句：改了哪几条、核对式是否通过。",
+      "owns": [
+        "cleanup-report-v2.md"
+      ]
+    }
+  ]
+}

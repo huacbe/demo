@@ -1,0 +1,28 @@
+{
+  "name": "demo-two-workers",
+  "goal": "验证两个 Codex 在同一个文件夹里同时干活：各写各的文件，互不越界，最后由第三个负责汇总。",
+  "workDir": "D:\\demo\\agent-hub\\work\\demo",
+  "subtasks": [
+    {
+      "id": "facts",
+      "agent": "codex",
+      "dependsOn": [],
+      "owns": ["facts.md"],
+      "prompt": "只写 facts.md（中文，20 行内）。内容：把当前工作目录 D:\\demo 的顶层结构说清楚——有哪些子目录、每个子目录大概是什么（依据目录名与其中的文件名推断，推断要标注「推断」）。不要读 .venv 和 models 里的内容，太大。"
+    },
+    {
+      "id": "entry",
+      "agent": "codex",
+      "dependsOn": [],
+      "owns": ["entry.md"],
+      "prompt": "只写 entry.md（中文，20 行内）。内容：读 D:\\demo\\main.py 和 D:\\demo\\download_model.py，说清楚这个项目的入口在哪、启动需要什么参数、依赖哪些模型文件。不要修改任何代码。"
+    },
+    {
+      "id": "merge",
+      "agent": "codex",
+      "dependsOn": ["facts", "entry"],
+      "owns": ["overview.md"],
+      "prompt": "当前目录已有 facts.md 和 entry.md。合并成 overview.md（中文，30 行内）：先用三句话说明这个项目是什么，再给一张「目录 / 作用 / 是否要动」的表。两个分片说法冲突时单列一节「需要人工确认」。只写 overview.md，不要改分片。"
+    }
+  ]
+}

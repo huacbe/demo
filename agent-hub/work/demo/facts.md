@@ -1,0 +1,14 @@
+# D:\demo 顶层结构（facts）
+- .git：Git 版本库元数据（推断）。
+- .idea：JetBrains IDE 项目配置，含 workspace.xml、demo.iml 等。
+- .venv：Python 虚拟环境（按要求未读内容）。
+- models：本地模型目录（按要求未读内容；download_model.py 下载 Qwen3-Embedding-0.6B 至此，推断）。
+- out：空目录，目前无内容。
+- output：输出目录，含 docs.json、vectors.npy，应为向量化结果（推断）。
+- agent-hub：多 Codex 协作调度中心。
+  - run-task.ps1/Test-HubPrereqs.ps1：并发拉起、验收与自检脚本。
+  - tasks：任务定义（demo-two-workers 等）；runs：各次运行日志；codex-home：各 worker 独立 home；lib：PowerShell 库；work：工作区。
+- restaurant-ai：餐厅 AI 点菜项目（推断）。
+  - backend：app.py/embedding.py/vector_db.py/ingest.py 等后端与向量检索；chroma_data：Chroma 向量库。
+  - web：index.html/app.js/style.css 等前端；knowledge：菜品、配菜规则 Markdown；docs：使用说明.md。
+- 顶层文件：main.py（文档向量化+相似度检索示例）、download_model.py（下载模型）、install.log/download.log/run.log（安装与运行日志）、.gitignore。

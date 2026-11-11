@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "note": "本机可被编排的 Agent 注册表。kind: cli=可无头调用 / gui=只能人工操作界面 / subagent=由 DSH 会话内派生。",
+  "agents": {
+    "codex": {
+      "kind": "cli",
+      "displayName": "Codex CLI",
+      "exe": "C:\\Users\\admin\\AppData\\Local\\OpenAI\\Codex\\bin\\f71a721e0e6193a9\\codex.exe",
+      "model": "deepseek-v4-pro",
+      "strengths": ["写代码", "改仓库", "跑命令自检"],
+      "limits": "需要 HTTPS 出网，必须用 danger-full-access 执行；单次调用约 9k tokens 起步。",
+      "concurrency": 3
+    },
+    "claude-desktop": {
+      "kind": "gui",
+      "displayName": "Claude Desktop",
+      "strengths": ["长文写作", "对话式分析"],
+      "limits": "无 CLI，只能由 wincu 桌面工具代操作界面，产出需人工取回。",
+      "concurrency": 1
+    },
+    "workbuddy": {
+      "kind": "gui",
+      "displayName": "WorkBuddy",
+      "strengths": ["办公文档"],
+      "limits": "安装目录 E:\\workvuddy 已不存在，需先确认是否仍可用。",
+      "concurrency": 1
+    },
+    "dsh-subagent": {
+      "kind": "subagent",
+      "displayName": "DSH 子 Agent",
+      "strengths": ["调研", "写作", "复核", "可用不同模型"],
+      "limits": "只能由当前 DSH 会话内的 subagent/workflow 工具派生，无法从 pwsh 调用。",
+      "concurrency": 8
+    }
+  }
+}

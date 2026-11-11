@@ -1,0 +1,19 @@
+{
+  "workspace": "D:\\demo",
+  "scanExclude": [
+    "agent-hub/runs",
+    "agent-hub/codex-home",
+    "agent-hub/work/*/tmp",
+    ".venv",
+    "models",
+    "out",
+    "output",
+    "__pycache__"
+  ],
+  "writePolicy": "一个文件同时只能有一个写入者；跨 Agent 协作按子任务 owns 划分，冲突则自动顺延批次",
+  "ownsRequired": true,
+  "notes": [
+    "runs/ 存每次运行的 prompt/stdout/stderr/备份，codex-home/ 存各 slot 的 CODEX_HOME，均不应参与扫描与清理",
+    "本机未安装 git，回滚依赖 run-task.ps1 的定向备份（runs/<run>/<id>/backup）"
+  ]
+}

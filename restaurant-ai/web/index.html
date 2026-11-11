@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>餐厅智能助手</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 模拟手机小程序的外壳 -->
+    <div class="phone">
+        <!-- 顶部导航栏 -->
+        <div class="nav-bar">
+            <span class="nav-title">餐厅智能助手</span>
+        </div>
+
+        <!-- 顶部：两个标签页（AI助手 / 点菜） -->
+        <div class="tab-bar">
+            <div class="tab-item active" id="tabAi" data-tab="ai">AI 助手</div>
+            <div class="tab-item" id="tabMenu" data-tab="menu">点菜</div>
+        </div>
+
+        <!-- ============ 界面一：AI 助手（全屏） ============ -->
+        <div class="tab-panel active" id="panelAi">
+            <div class="ai-panel">
+                <div class="ai-panel-header">
+                    <span class="ai-avatar">🤖</span>
+                    <span class="ai-title">智能助手</span>
+                </div>
+                <div class="chat-area" id="chatArea">
+                    <!-- 欢迎气泡 -->
+                    <div class="msg assistant">
+                        <div class="bubble">
+                            你好呀！我是餐厅的智能助手～<br>
+                            可以问我推荐菜品、餐厅文化、门店信息等。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 配菜快捷入口 -->
+            <div class="quick-actions">
+                <button class="quick-btn" id="mealPlanBtn">🍽️ 一键配菜</button>
+            </div>
+            <!-- AI 助手界面的输入栏 -->
+            <div class="input-bar">
+                <input type="text" id="inputBox" placeholder="输入你想问的…" autocomplete="off">
+                <button id="sendBtn">发送</button>
+            </div>
+        </div>
+
+        <!-- 配菜表单弹层 -->
+        <div class="meal-modal" id="mealModal" style="display:none;">
+            <div class="meal-modal-mask" id="mealMask"></div>
+            <div class="meal-modal-body">
+                <div class="meal-modal-title">🍽️ 一键配菜</div>
+                <div class="meal-field">
+                    <label>用餐人数</label>
+                    <input type="number" id="mealPeople" placeholder="如 6" min="1">
+                </div>
+                <div class="meal-field">
+                    <label>预算（元）</label>
+                    <input type="number" id="mealBudget" placeholder="如 800" min="0">
+                </div>
+                <div class="meal-field">
+                    <label>口味偏好</label>
+                    <input type="text" id="mealTaste" placeholder="如 偏辣 / 清淡 / 家常">
+                </div>
+                <div class="meal-field">
+                    <label>忌口（选填）</label>
+                    <input type="text" id="mealAvoid" placeholder="如 不吃香菜、不吃海鲜">
+                </div>
+                <div class="meal-modal-btns">
+                    <button class="meal-cancel" id="mealCancel">取消</button>
+                    <button class="meal-confirm" id="mealConfirm">开始配菜</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ 界面二：点菜（全屏） ============ -->
+        <div class="tab-panel" id="panelMenu">
+            <div class="menu-container">
+                <!-- 左侧分类栏 -->
+                <div class="category-side" id="categorySide">
+                    <!-- 分类由 menu.js 动态生成 -->
+                </div>
+                <!-- 右侧菜品列表 -->
+                <div class="dish-side" id="dishSide">
+                    <!-- 菜品由 menu.js 动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ 底部：已点菜栏（始终显示在最下方） ============ -->
+        <div class="cart-bar" id="cartBar">
+            <div class="cart-head" id="cartHead">
+                <div class="cart-icon-wrap">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </div>
+                <div class="cart-total" id="cartTotal">¥0</div>
+                <button class="cart-toggle" id="cartToggleBtn">
+                    <span class="cart-toggle-text" id="cartToggleText">查看已点菜</span>
+                    <span class="cart-toggle-arrow" id="cartToggleArrow">▾</span>
+                </button>
+            </div>
+            <div class="cart-list" id="cartList" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script src="menu.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

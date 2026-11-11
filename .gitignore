@@ -1,0 +1,18 @@
+# 让 git 将来可用时不要把这些纳入版本库
+.venv/
+models/
+out/
+output/
+__pycache__/
+*.pyc
+*.log
+agent-hub/runs/
+agent-hub/codex-home/
+agent-hub/work/*/tmp/
+.idea/
+
+# 本地私有配置（真实 API Key），不入库
+restaurant-ai/backend/config_local.py
+
+# superagent 执行器在 D:\demo 内的基线仓库与工单工作树
+.superagent/

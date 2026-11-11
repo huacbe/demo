@@ -1,0 +1,47 @@
+{
+  "name": "parallel-fanout",
+  "goal": "基于已有的 inventory.csv 做三路独立分析并汇总成一份结论，验证多 Agent 并行分工与结果回收。",
+  "workDir": "D:\\demo\\agent-hub\\work\\parallel-fanout",
+  "subtasks": [
+    {
+      "id": "time",
+      "agent": "codex",
+      "dependsOn": [],
+      "prompt": "读当前目录的 inventory.csv，只做「时间维度」分析，写 slice-time.md（中文，30 行内）：\n1. 按 modified 的日期分组，每天多少个文件、合计多少 MB；\n2. 给出数量最多的那一天并说明占比；\n3. 一句话判断：这批文件是「某次批量产生的」还是「长期零散累积的」。\n只写事实，不要推测用途；只写 slice-time.md 这一个文件。",
+      "owns": [
+        "slice-time.md"
+      ]
+    },
+    {
+      "id": "size",
+      "agent": "codex",
+      "dependsOn": [],
+      "prompt": "读当前目录的 inventory.csv，只做「体积维度」分析，写 slice-size.md（中文，30 行内）：\n1. 列出最大的 10 个文件（名字 + KB，降序）；\n2. 体积分布：>1000KB / 100-1000KB / 10-100KB / <10KB 各多少个、各占多少 MB；\n3. 一句话结论：清理大头集中在哪一档。\n只写 slice-size.md 这一个文件。",
+      "owns": [
+        "slice-size.md"
+      ]
+    },
+    {
+      "id": "naming",
+      "agent": "codex",
+      "dependsOn": [],
+      "prompt": "读当前目录的 inventory.csv，只做「命名模式」分析，写 slice-naming.md（中文，30 行内）：\n1. 把文件名按前缀首字母归类（如 m*/n*/r*/t*/b*/p*/toc*），统计每类数量和 MB；\n2. 指出哪些前缀明显是同一批产物（连续编号、规律递增）；\n3. 一句话结论：这些命名能否用于判断「可安全清理」。\n只写 slice-naming.md 这一个文件。",
+      "owns": [
+        "slice-naming.md"
+      ]
+    },
+    {
+      "id": "merge",
+      "agent": "codex",
+      "dependsOn": [
+        "time",
+        "size",
+        "naming"
+      ],
+      "prompt": "当前目录已有 slice-time.md、slice-size.md、slice-naming.md 三份分片分析。把它们合并成 summary-all.md（中文，50 行内）：\n1. 开头三句话：这批文件是什么、该不该清理、先清哪一批；\n2. 一个汇总表：维度 / 关键发现 / 建议动作 / 风险；\n3. 若三份分片之间有矛盾或数据对不上的地方，单列「需要人工确认」一节。\n只写 summary-all.md，不要改动三份分片。",
+      "owns": [
+        "summary-all.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "workspace-audit",
+  "goal": "盘点 E:\\dsh工作区 根目录下散落文件的类型与占用，给出一份可执行的清理建议报告，全过程不得改动源文件。",
+  "workDir": "D:\\demo\\agent-hub\\work\\audit",
+  "subtasks": [
+    {
+      "id": "scan",
+      "agent": "codex",
+      "dependsOn": [],
+      "prompt": "盘点 E:\\dsh工作区 根目录（只看该目录本身，不要递归进子目录，跳过 agent-hub 和 codex-skills 两个文件夹）下的散落文件。\n\n把结果写到当前工作目录：\n1. inventory.csv —— 表头 name,ext,size_kb,modified,group；group 按扩展名归类（image / doc / script / other）。路径含逗号或引号时按 CSV 规则转义。\n2. summary.json —— 字段 total_files, total_mb, by_ext(对象), by_day(yyyy-MM-dd → 数量，取前 10 天), oldest, newest。\n\n硬性约束：只读 E:\\dsh工作区 的文件，不删除、不移动、不改名、不修改任何内容；只往当前工作目录写文件。完成后用两三句话说明文件数量和总占用。",
+      "owns": [
+        "inventory.csv",
+        "summary.json"
+      ]
+    },
+    {
+      "id": "report",
+      "agent": "codex",
+      "dependsOn": [
+        "scan"
+      ],
+      "prompt": "读取当前工作目录的 inventory.csv（如果没有，先读 summary.json），写一份 cleanup-report.md，中文，控制在 120 行内：\n\n1. 开头一句话结论（这些文件该不该清理、清理能省多少空间）。\n2. 按类型分组的表格：类型 / 文件数 / 占用 MB / 占比。\n3. 明显可清理的类别，逐条给出建议动作与风险等级（低/中/高）。\n4. 需要人工确认才能动手的项单独列一节。\n\n硬性约束：只依据 inventory.csv / summary.json 里的事实，不要编造数字；不要删除或移动任何文件；只写 cleanup-report.md 这一个文件。",
+      "owns": [
+        "cleanup-report.md"
+      ]
+    }
+  ]
+}

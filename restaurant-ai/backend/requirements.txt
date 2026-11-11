@@ -1,0 +1,27 @@
+# ============================================================
+# requirements.txt —— 项目依赖
+#
+# 安装方式（建议在虚拟环境里执行）：
+#   pip install -r requirements.txt
+#
+# 说明：
+#   - torch：加载千问模型（体积较大，如果已装可跳过）
+#   - 建议先用清华镜像加速：pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+# ============================================================
+
+# 向量数据库
+chromadb>=0.4.0
+
+# 千问 Embedding 模型加载
+torch>=2.0.0
+transformers>=4.51.0
+
+# DeepSeek 大模型调用（OpenAI 兼容接口）
+openai>=1.0.0
+
+# 后端 Web 服务
+fastapi>=0.110.0
+uvicorn>=0.27.0
+
+# 请求体解析（fastapi 依赖，通常会一起装，这里显式声明）
+pydantic>=2.0.0
